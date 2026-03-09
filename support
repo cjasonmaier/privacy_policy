@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support — Carve: The Wooden Puzzle Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --wood-dark:    #1a0f08;
+            --wood-mid:     #2e1a0e;
+            --wood-warm:    #4a2c18;
+            --wood-grain:   #5c3820;
+            --wood-light:   #8b5e3c;
+            --gold:         #c9923a;
+            --gold-light:   #e8b86d;
+            --cream:        #f5ead8;
+            --cream-dim:    #d4bfa0;
+            --text-body:    #e8d9c0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--wood-dark);
+            background-image:
+                repeating-linear-gradient(
+                    92deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255,255,255,0.012) 2px,
+                    rgba(255,255,255,0.012) 4px
+                ),
+                repeating-linear-gradient(
+                    180deg,
+                    transparent,
+                    transparent 40px,
+                    rgba(0,0,0,0.08) 40px,
+                    rgba(0,0,0,0.08) 41px
+                );
+            color: var(--text-body);
+            font-family: 'Crimson Text', Georgia, serif;
+            font-size: 18px;
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                radial-gradient(ellipse at 20% 50%, rgba(90,50,20,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(60,30,10,0.2) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 60px 40px 80px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 56px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--wood-grain);
+            position: relative;
+        }
+
+        header::after {
+            content: '';
+            display: block;
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 0 auto;
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .game-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 700;
+            color: var(--gold-light);
+            letter-spacing: 0.08em;
+            text-shadow:
+                0 0 40px rgba(201,146,58,0.4),
+                0 2px 4px rgba(0,0,0,0.6);
+            margin-bottom: 6px;
+        }
+
+        .page-subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(13px, 2vw, 16px);
+            font-weight: 400;
+            color: var(--cream-dim);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .page-label {
+            display: inline-block;
+            margin-top: 18px;
+            font-size: 14px;
+            color: var(--wood-light);
+            font-style: italic;
+            letter-spacing: 0.04em;
+        }
+
+        section {
+            margin-bottom: 44px;
+            background: rgba(255,255,255,0.025);
+            border: 1px solid rgba(139,94,60,0.2);
+            border-radius: 4px;
+            padding: 28px 32px;
+            position: relative;
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--gold), transparent);
+            border-radius: 4px 0 0 4px;
+        }
+
+        h2 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(14px, 2.2vw, 17px);
+            font-weight: 600;
+            color: var(--gold-light);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--cream);
+            letter-spacing: 0.06em;
+            margin: 24px 0 8px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(139,94,60,0.25);
+        }
+
+        h3:first-of-type { margin-top: 8px; }
+
+        p {
+            color: var(--text-body);
+            margin-bottom: 12px;
+        }
+
+        p:last-child { margin-bottom: 0; }
+
+        a {
+            color: var(--gold-light);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(201,146,58,0.3);
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        a:hover {
+            color: var(--cream);
+            border-color: var(--cream);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        ul li {
+            padding: 4px 0 4px 20px;
+            position: relative;
+            color: var(--text-body);
+        }
+
+        ul li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-size: 8px;
+            top: 10px;
+        }
+
+        .contact-box {
+            background: rgba(201,146,58,0.07);
+            border: 1px solid rgba(201,146,58,0.25);
+            border-radius: 3px;
+            padding: 20px 24px;
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .contact-box p {
+            font-size: 16px;
+            color: var(--cream-dim);
+            margin-bottom: 10px;
+        }
+
+        .contact-box a {
+            font-family: 'Cinzel', serif;
+            font-size: 15px;
+            letter-spacing: 0.06em;
+            color: var(--gold-light);
+            border-bottom-color: rgba(201,146,58,0.4);
+        }
+
+        .response-note {
+            font-size: 14px;
+            font-style: italic;
+            color: var(--wood-light);
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .ornament {
+            text-align: center;
+            color: var(--gold);
+            font-size: 20px;
+            letter-spacing: 0.3em;
+            margin: 36px 0;
+            opacity: 0.6;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 32px;
+            border-top: 1px solid var(--wood-grain);
+            font-size: 14px;
+            color: var(--wood-light);
+            font-style: italic;
+        }
+
+        footer a {
+            color: var(--wood-light);
+            border-bottom-color: rgba(139,94,60,0.4);
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .page-wrapper { padding: 40px 20px 60px; }
+            section { padding: 20px 18px; }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+    <header>
+        <div class="game-title">CARVE</div>
+        <div class="page-subtitle">The Wooden Puzzle Game</div>
+        <span class="page-label">Support &amp; Help Center</span>
+    </header>
+
+    <section>
+        <h2>How to Play</h2>
+        <p>Carve is a sliding block puzzle game. Slide 1×1 blocks to match the target shapes shown on the board. When a shape is matched, it is carved away, new blocks spawn, and you earn moves back.</p>
+        <ul>
+            <li>Every swipe costs one move — matches and combos refund moves</li>
+            <li>Carve multiple shapes with a single slide to score a combo</li>
+            <li>Rotate the entire board freely — rotations don't cost a move</li>
+            <li>Carve a shape containing a bonus block to completely refill your move meter</li>
+            <li>Run out of moves and the game ends</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Frequently Asked Questions</h2>
+
+        <h3>How do I restore my "Remove Ads" purchase?</h3>
+        <p>Open the Settings menu inside Carve and tap <strong>Restore Purchases</strong>. Make sure you are signed into the same Apple ID used for the original purchase. Your purchase will be restored at no charge.</p>
+
+        <h3>I purchased "Remove Ads" but ads are still showing.</h3>
+        <p>First, try tapping Restore Purchases in the Settings menu. If ads continue to appear, force-quit the app completely and relaunch it. If the issue persists, please contact us using the email below and we will help resolve it promptly.</p>
+
+        <h3>My game progress was lost. Can it be recovered?</h3>
+        <p>Carve saves your progress locally on your device. If you deleted and reinstalled the app, or restored your device from a backup, progress may not be recoverable. We recommend keeping your device backed up regularly via iCloud or iTunes.</p>
+
+        <h3>What are the wood ranks?</h3>
+        <p>Carve tracks your skill through a ranking system based on types of wood — beginning with Balsa and progressing through increasingly rare and exotic hardwoods as your mastery grows. Ranks are earned by accumulating points across your games.</p>
+
+        <h3>What are daily quests and streaks?</h3>
+        <p>A new quest is available every day. Complete it to earn rewards. Maintaining a daily play streak and completing quests earns loot boxes containing power-ups. Quests reset at midnight local time.</p>
+
+        <h3>What are loot boxes and power-ups?</h3>
+        <p>Loot boxes are earned by advancing in rank, completing daily quests, and maintaining your daily streak. They contain power-ups that can help you during gameplay. Loot boxes are never sold — they are earned through play only.</p>
+
+        <h3>The app crashed or isn't working correctly.</h3>
+        <p>Please make sure you are running the latest version of Carve from the App Store. If problems persist, contact us with a description of the issue and what device and iOS version you are using.</p>
+
+        <h3>Is Carve safe for children?</h3>
+        <p>Yes. Carve is rated 4+ and contains no violent, adult, or inappropriate content. Ad content is restricted to family-safe (G-rated) material only. A one-time "Remove Ads" purchase is available to remove all advertising permanently.</p>
+
+    </section>
+
+    <section>
+        <h2>Contact Support</h2>
+        <p>Can't find what you're looking for? We're happy to help.</p>
+        <div class="contact-box">
+            <p>Send us an email and we'll get back to you as soon as possible.</p>
+            <a href="mailto:[YOUR EMAIL ADDRESS]">[YOUR EMAIL ADDRESS]</a>
+        </div>
+        <p class="response-note">We typically respond within 1–2 business days.</p>
+    </section>
+
+    <div class="ornament">&#9670; &nbsp; &#9670; &nbsp; &#9670;</div>
+
+    <footer>
+        &copy; 2026 C. Jason Maier &mdash; Carve: The Wooden Puzzle Game<br><br>
+        <a href="/privacy_policy/">Privacy Policy</a>
+    </footer>
+
+</div>
+</body>
+</html>
